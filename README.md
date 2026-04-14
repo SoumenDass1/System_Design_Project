@@ -61,6 +61,8 @@ The project utilizes clean architecture split firmly into:
 
 ---
 
-## 👥 Team Members
-- **Abuzar Haideri** – DevOps Integration, Node.js Scaffolding, Core Repo Structuring
-- **Soumen Dass** – System Architecture Roadmap, Frontend Interfaces, Documentation
+| Member | Role | Contributions |
+| :--- | :--- | :--- |
+| **Abuzar Haidari** | TL / Architect | System design, UML modeling, architectural documentation, and code quality review. |
+| **Soumen Dass** | Lead Developer | Backend implementation, design pattern integration, database schema design, and deployment management. |
+
