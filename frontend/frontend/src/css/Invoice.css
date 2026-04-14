@@ -1,0 +1,225 @@
+.invoice-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.2s ease-out;
+}
+
+.invoice-modal {
+    background: white;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.invoice-actions {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--gray-50);
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--gray-600);
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    background: var(--gray-200);
+    color: var(--gray-900);
+}
+
+.invoice-content {
+    padding: 3rem;
+    overflow-y: auto;
+    background: white;
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--gray-100);
+}
+
+.brand-logo h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.invoice-details {
+    text-align: right;
+}
+
+.invoice-details h1 {
+    font-size: 1.5rem;
+    color: var(--gray-400);
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.invoice-details p {
+    margin: 0.25rem 0;
+    color: var(--gray-600);
+}
+
+.invoice-addresses {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+}
+
+.address-block h3 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.address-block p {
+    margin: 0.25rem 0;
+    color: var(--gray-900);
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.invoice-table th {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 2px solid var(--gray-100);
+    color: var(--gray-500);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+}
+
+.invoice-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-900);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.invoice-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--gray-100);
+}
+
+.invoice-totals {
+    width: 300px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    color: var(--gray-600);
+}
+
+.total-row.grand-total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-200);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--gray-900);
+}
+
+.invoice-note {
+    margin-top: 4rem;
+    text-align: center;
+    color: var(--gray-500);
+}
+
+@media print {
+    .invoice-overlay {
+        position: static;
+        background: white;
+        display: block;
+    }
+
+    .invoice-modal {
+        box-shadow: none;
+        max-width: 100%;
+        max-height: none;
+    }
+
+    .invoice-actions {
+        display: none;
+    }
+
+    .invoice-content {
+        padding: 0;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .invoice-overlay,
+    .invoice-overlay * {
+        visibility: visible;
+    }
+
+    .invoice-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .invoice-content {
+        padding: 1.5rem;
+    }
+
+    .invoice-header,
+    .invoice-addresses {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .invoice-details {
+        text-align: left;
+    }
+}
