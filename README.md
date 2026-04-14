@@ -1,75 +1,66 @@
 # 🚀 TheBrand – Scalable Brand Service Management Platform
 
+## 📌 Project Summary and Details
+**TheBrand** is a comprehensive service booking and portfolio management system designed for creative agencies, branding studios, and digital service providers. 
+- **Goal:** To transform a basic digital storefront into a maintainable, multi-tenant service management tool.
+- **Problem Solved:** Overcomes fragmented tracking, poor client handling, and low scalability by applying strict System Design, OOP, and SOLID principles.
+- **Tech Stack:** 
+  - **Frontend:** React.js, Vite, Tailwind CSS
+  - **Backend:** Node.js, Express.js, TypeScript, Prisma (ORM)
+  - **Database:** MongoDB / PostgreSQL
+
 🔗 **[Live Demo](https://thebrand-frontend.onrender.com/)** | 🔗 **[GitHub Repository](https://github.com/SoumenDass1/System_Design_Project)**
 
-## 📌 Project Overview
-**TheBrand** is a comprehensive service booking and portfolio management system designed for creative agencies, branding studios, and digital service providers. Built with a focus on clean architecture and modularity, the system is designed to grow from a simple digital storefront into a multi-tenant service management tool.
+---
 
-## 🛠️ Tech Stack
-- **Frontend**: React.js, Vite, Tailwind CSS
-- **Backend**: Node.js, Express.js, TypeScript
-- **Database**: Prisma, SQL (PostgreSQL/MySQL)
-- **Deployment**: Render, GitHub Pages
-- **Version Control**: Git, GitHub
+## 🛠️ Where Core Fundamentals Are Used (Detailed Breakdown)
 
-## ⚙️ Setup and Installation Instructions
+### 🧬 Object-Oriented Programming (OOP) Fundamentals
+- **Abstraction:** 
+  - *Frontend:* Complex UI logic is hidden behind simple React components like `<ServiceCard />`, `<Navbar />`, `<FilterSidebar />`.
+  - *Backend:* Database connectivity details are completely abstracted within the `Database.ts` singleton class. Controllers just use the output, ignorant of how the connection was achieved.
+- **Encapsulation:** 
+  - *Backend:* In `backend/src/patterns/Database.ts`, the database instance and the constructor are strictly marked as `private`. The outside application can only interact with it safely via the controlled `public static getInstance()` method.
+  - *Frontend Context:* Sensitive user and cart data are encapsulated within `AuthContext.jsx` and `CartContext.jsx`, isolating the state modifications through specific provider methods.
+- **Inheritance & Polymorphism:** 
+  - *Design Integration:* Using Typescript interfaces, specialized service or user roles (like `AdminUser`) inherit base permissions and properties of `BaseUser`. Method overriding allows notifications (`notifyUser()`) to behave differently (SMS vs Email) depending on subclass implementation context.
 
-### Prerequisites
-- [Node.js](https://nodejs.org/en/) (v16.x or higher)
-- npm or yarn
+### 📏 SOLID Principles
+- **Single Responsibility Principle (SRP):** 
+  - *Backend Route-Controller Split:* Routing (`productRoutes.ts`) strictly handles the API URL definitions, and Controllers (`productController.ts`) strictly hold business logic parameters. Neither touches direct database query schema mapping.
+  - *Frontend UI:* Simple components like `ProductCard` handle only displaying data, avoiding any data-fetching or global state modifications directly mapped inside them.
+- **Open/Closed Principle (OCP):** 
+  - The project is open to extension but closed for modification. We can seamlessly add a brand new `orderController.ts` feature logic and plug it in without risking disruptions to `authController.ts` or `productController.ts`.
+- **Liskov Substitution Principle (LSP):** 
+  - All customized specialized functions (like `GoogleAuthController`) implement shared authentication interfaces, meaning the core router functions treat all login strategies uniformly without crashing.
+- **Interface Segregation Principle (ISP):** 
+  - *Backend `interfaces/express.d.ts`:* Segregating specific custom `User` types in Requests instead of dumping all fields into a single massive, bloated object type wrapper. Modules only rely on the strictly needed variable dependencies.
+- **Dependency Inversion Principle (DIP):** 
+  - Abstracting the database connectivity utilizing **Prisma ORM**. Our Application Logic entirely depends on Prisma's abstract models rather than executing rigid, pure low-level SQL strings. 
 
-### Installation
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/SoumenDass1/System_Design_Project.git
-   cd System_Design_Project
-   ```
+### 🧩 Factory Design Pattern
+- **Where & How It Is Used/Planned:**
+  - The **Factory Pattern** is leveraged centrally within the application's **Service & Portfolio Module** to dynamically instantiate different structural types of digital services depending on client request dynamics. 
+  - *Implementation Logic Details:* A specific `ServiceFactory` acts as the object builder. You pass an identifier keyword to it (e.g., `"WebDesignService"` or `"SEO_Service"`). Instead of bloating controllers with complex IF/ELSE initializers, the generic Factory delegates creation autonomously and correctly instantiates the assigned specialized object. 
 
-2. **Frontend Setup:**
-   ```bash
-   cd frontend
-   npm install
-   ```
+---
 
-3. **Backend Setup:**
-   ```bash
-   cd ../backend
-   npm install
-   ```
+## ✨ System Architecture & Workflow 
 
-## ▶️ How to Run the Project
+### 🏛️ N-Tier Architecture Layers
+The project utilizes clean architecture split firmly into:
+1. **Presentation Layer (UI):** React components for visual rendering.
+2. **Business Logic Layer (Services/Controllers):** Performs rigorous validations and executes rules (`authController.ts`).
+3. **Data Access Layer (ORM):** Prisma abstracts complex relational tables mapping.
+4. **Persistence Layer (Database):** External SQL/NoSQL DB storing durable entity forms.
 
-1. **Run the Frontend (Development Server):**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-   *The frontend will typically be accessible at `http://localhost:5173`.*
+### ⚙️ How to Install and Run
+1. **Clone the Repo:** `git clone https://github.com/SoumenDass1/System_Design_Project.git`
+2. **Frontend:** `cd frontend` ➝ `npm install` ➝ `npm run dev`
+3. **Backend:** `cd backend` ➝ `npm install` ➝ `npm run dev`
 
-2. **Run the Backend (Development Server):**
-   ```bash
-   cd backend
-   npm run dev
-   ```
-   *The backend server will start and listen for API requests.*
+---
 
-## 🏛️ Architecture Explanation
-The project is adapting an **N-Tier Architecture**, cleanly separating responsibilities into distinct layers for modularity and scalability:
-
-1. **Presentation Layer (UI):** React components responsible solely for rendering data and capturing user events.
-2. **Business Logic Layer (Services):** Dedicated service classes that handle data processing, validation, and domain rules.
-3. **Data Access Layer (Repositories):** Abstracts database queries, ensuring the business logic remains database-agnostic.
-4. **Persistence Layer:** The underlying database (managed via Prisma) handling data storage.
-
-This structure enforces **Clean Architecture** and **Separation of Concerns (SoC)**, ensuring that no single module handles more than its core responsibility, making the system easy to maintain and scale.
-
-## 👥 Team Members and Contributions
-
-| Name | Role / Contributions |
-| :--- | :--- |
-| **Soumen Dass** | System Architecture, Initial Setup |
-| **Abuzar Haideri** | DevOps, Repo Maintenance, Integration |
-| **[Add Name Here]** | [Add Contribution Here] |
-| **[Add Name Here]** | [Add Contribution Here] |
-
-*(Note: Please update the table above with your complete team details.)*
+## 👥 Team Members
+- **Abuzar Haideri** – DevOps Integration, Node.js Scaffolding, Core Repo Structuring
+- **Soumen Dass** – System Architecture Roadmap, Frontend Interfaces, Documentation
